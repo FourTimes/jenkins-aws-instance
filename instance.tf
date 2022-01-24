@@ -46,12 +46,6 @@ resource "aws_instance" "project-iac" {
     volume_size = 50
     volume_type = "gp2"
   }
-  tags {
-    Name        = "SERVER01"
-    Environment = "DEV"
-    OS          = "UBUNTU"
-    Managed     = "IAC"
-  }
 
   depends_on = [ aws_security_group.project-iac-sg ]
 }
