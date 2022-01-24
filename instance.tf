@@ -1,35 +1,39 @@
 resource "aws_security_group" "project-iac-sg" {
-  name = "IAC-Sec-Group"
-  description = "IAC-Sec-Group"
-  vpc_id = "vpc-0638c60c0efc48912"
-  ingress {
-    from_port = 22
-    protocol = "tcp"
-    to_port = 22
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+
+  name        = "allow_tls"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = "vpc-0638c60c0efc48912"
 
   ingress {
-    from_port = 80
-    protocol = ""
-    to_port = 80
-    cidr_blocks = ["0.0.0.0/0"]
+    description      = "TLS from VPC"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 
+  tags = {
+    Name = "allow_tls"
+  }
+  
   lifecycle {
     create_before_destroy = true
   }
+
 }
 
 
 resource "aws_instance" "project-iac" {
+  
   ami           = "ami-04505e74c0741db8d"
   instance_type = "t2.micro"
   subnet_id     = "subnet-0a3f2b582374a501d"
