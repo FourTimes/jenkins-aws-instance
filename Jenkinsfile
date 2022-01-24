@@ -16,7 +16,7 @@ pipeline {
         stage('TERRAFORM INIT') {
             steps {
                 sh '''
-                    terrform init
+                    terraform init
                 '''
             } 
         }
