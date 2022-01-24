@@ -44,13 +44,6 @@ resource "aws_instance" "project-iac" {
     aws_security_group.project-iac-sg.id
   ]
 
-  root_block_device {
-    delete_on_termination = true
-    iops        = 150
-    volume_size = 50
-    volume_type = "gp2"
-  }
-
   depends_on = [ aws_security_group.project-iac-sg ]
 }
 
