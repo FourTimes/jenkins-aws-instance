@@ -48,5 +48,19 @@ pipeline {
                 '''
             } 
         }
+        stage('SLEEP 180s') {
+            steps {
+                sh '''
+                    sleep 180
+                '''
+            } 
+        }
+        stage('TERRAFORM DESTROY') {
+            steps {
+                sh '''
+                    terraform destroy -auto-approve
+                '''
+            } 
+        }
     }
 }
